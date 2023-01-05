@@ -25,3 +25,7 @@ ALTER USER payment_service
     SET TAG merchants.governance.application_environment = 'production';
 ALTER USER payment_service_staging
     SET TAG merchants.governance.application_environment = 'staging';
+
+-- Seed the tables with some initial data
+INSERT INTO merchants.production.finance (data) VALUES ('testdata');
+INSERT INTO merchants.staging.finance (data) VALUES ('staging testdata');
