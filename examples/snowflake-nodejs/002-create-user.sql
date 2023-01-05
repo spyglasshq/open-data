@@ -1,3 +1,9 @@
+-- Create the user and add the RSA public key (without the PEM "-----PUBLIC KEY-----" headers)
 CREATE USER IF NOT EXISTS my_service_user;
-ALTER USER my_service_user SET rsa_public_key='MIIBIjANBgkqh...';
+ALTER USER my_service_user SET rsa_public_key='MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA0ryMBJXM5Pm2oVX9J/puO97ASaBzuslxSmUSwkJVHv5l6u7TitbPAKVMc4wUWlbzLcUwfl5Gih7wvW/n1N6i2F5KOs7pUfACxU3G1tOUd5ai9Jw/4hhYs9aGdN+V5b7J92VGb0C8jN73rbrt2RAn44ACRdc6l5w5zP2tMnqNwK00uxL/iHyRuEyDv0ZG/9CGJK8mvXLtaeJHYvLHsahrgwhXjKAN1swYTQgaX+sC0omZNw0HxxOdrdZOAufX4Vv1jMxEWzGZPW81OxI0VEELo3s9I8v7aiKO4LBTgTRGTkEPKbnhjtoLkWh6Drt/LSvFYbJAHoqOjPCcMXqEqeBN8zlJiWZMEtlvjXCVCvxlJ4itI74N5w/WAg5+5IvuVubSd/mC46Ui+Nn4n9EJQsfadxt46oy3IPQus3RjOGFKfUzUhHP624GUtHdqusr1CkeMpVtJmRlDq2R2VepDmvtEXWc188SFpT2FWsSJrOBVHdsGejmylTNrjz3WVC+kb9oeUwqoXr0MmO1BvFMTkH+jX+KL6A2qYgwSw1mgnYTp/A5EXRIaVNbHs7rBmbnnNTGKyBRdjKuvstu3Nrl6Q27di7gpamR46wfl4jPIf5x1/z5juIjkBtYHYCJZkvY9KQWsvGxwZHg5WpUv7kEV3rWehvM1SlW/lIPtx8z6Ar8yLdECAwEAAQ==';
+
+-- Create other required objects and permissions
+CREATE WAREHOUSE IF NOT EXISTS service_compute_wh;
+CREATE ROLE IF NOT EXISTS service_users;
+GRANT USAGE ON WAREHOUSE service_compute_wh TO ROLE service_users;
 GRANT ROLE service_users TO USER my_service_user;
